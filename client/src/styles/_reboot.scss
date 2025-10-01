@@ -11,12 +11,12 @@ body {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  font-family: $ff-mulish;
+  font-family: var(--ff-mulish);
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
-  color: $color-black;
-  background-color: $color-white;
+  color: var(--c--black);
+  background-color: var(--c--white);
 }
 
 main {
@@ -30,8 +30,14 @@ img {
 }
 
 a {
-  color: $color-black;
+  color: var(--c--black);
   text-decoration: none;
+}
+
+p, a, li, ul, h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 button {
