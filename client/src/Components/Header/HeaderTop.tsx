@@ -13,11 +13,10 @@ export const HeaderTop = ({
   onLocationClose,
   onCityChange,
 }: HeaderTopProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
 
-  const handleClick = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
+  const handleCatalogOpen = () => setIsCatalogOpen(true);
+  const handleCatalogClose = () => setIsCatalogOpen(false);
 
   return (
     <>
@@ -35,7 +34,7 @@ export const HeaderTop = ({
         <button
           className="header__catalog-btn"
           id="catalog-btn"
-          onClick={handleClick}
+          onClick={handleCatalogOpen}
           type="button"
         >
           <svg
@@ -48,6 +47,8 @@ export const HeaderTop = ({
           </svg>
           <span className="header__catalog-text">Каталог</span>
         </button>
+
+        <HeaderCatalog open={isCatalogOpen} onClose={handleCatalogClose} />
 
         <HeaderLocation
           city={city}
@@ -105,7 +106,6 @@ export const HeaderTop = ({
           </li>
         </ul>
       </div>
-      <HeaderCatalog isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };
