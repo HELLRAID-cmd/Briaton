@@ -1,38 +1,4 @@
 .main-menu {
-  bottom: 0;
-  display: flex;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: opacity var(--transition) 0.3s;
-  z-index: 10;
-
-  $root: &;
-
-  &--active {
-    opacity: 1;
-    pointer-events: all;
-    transition: opacity var(--transition);
-
-    #{$root}__wrapper {
-      transform: translateX(0);
-      transition-delay: 0.2s;
-    }
-  }
-
-  &::before {
-    background-color: var(--c--black-70);
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-
   &__wrapper {
     background-color: var(--c--white);
     display: flex;
@@ -40,7 +6,6 @@
     gap: 36px;
     padding: 28px 28px 28px 40px;
     position: relative;
-    transform: translateX(-100%);
     transition: transform var(--transition);
     z-index: 2;
   }
