@@ -24,7 +24,7 @@
   }
 
   &::before {
-    background-color: rgba(var(--c--black), 0.7);
+    background-color: var(--c--black-70);
     content: "";
     height: 100%;
     left: 0;
