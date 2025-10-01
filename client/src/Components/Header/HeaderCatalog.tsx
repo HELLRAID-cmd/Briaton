@@ -1,4 +1,4 @@
-import type { HeaderProps } from "../Types"
+import type { HeaderProps } from "../Types/Types"
 
 export const HeaderCatalog = ({ isOpen ,onClose }: HeaderProps) => {
   return (
