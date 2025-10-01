@@ -1,0 +1,11 @@
+.ant {
+  &-drawer {
+    // display: none;
+    .ant-drawer-header {
+
+      &-title {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}
