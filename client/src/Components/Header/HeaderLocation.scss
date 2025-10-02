@@ -27,7 +27,7 @@
   }
 
   &__sublist {
-    background-color: var(--c--white);
+    background-color: var(--c-white);
     border-radius: 8px;
     box-shadow: 0 10px 60px 0 #4848481A;
     display: flex;
@@ -59,7 +59,7 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--c--granny-smith-apple);
+      color: var(--c-granny-smith-apple);
     }
   }
 }
