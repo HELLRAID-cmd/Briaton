@@ -1,5 +1,5 @@
 .basket {
-  background-color: var(--c--white);
+  background-color: var(--c-white);
   border-radius: 8px;
   padding: 16px;
   position: absolute;
@@ -87,7 +87,7 @@
 
   &__img {
     align-items: flex-start;
-    background-color: var(--c--white-smoke);
+    background-color: var(--c-white-smoke);
     border-radius: 6px;
     display: flex;
     height: 60px;
