@@ -1,6 +1,6 @@
 .btn {
   padding: 12px;
-  background-color: var(--c--granny-smith-apple);
+  background-color: var(--c-granny-smith-apple);
   border-radius: 8px;
   border: none;
   display: flex;
@@ -12,7 +12,7 @@
 
   &--secondary {
     background-color: transparent;
-    border: 1px solid var(--c--vista-blue);
+    border: 1px solid var(--c-vista-blue);
   }
 
   &--big {
