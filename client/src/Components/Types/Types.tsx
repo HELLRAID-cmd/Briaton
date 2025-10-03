@@ -13,6 +13,7 @@ export type ProductCard = {
     saintPetersburg: number;
   };
   goodsOfDay: boolean;
+  className?: string;
 }
 
 export type AccordingProps = {
