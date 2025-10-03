@@ -2,10 +2,10 @@ import type { ProductCard } from "../Types/Types";
 import "./Card-product.scss";
 import "./Card-tooltip.scss";
 
-export const Card = ({id, image, name, price, info, availability, goodsOfDay}: ProductCard) => {
+export const Card = ({id, image, name, price, info, availability, goodsOfDay, className}: ProductCard) => {
   return (
     <li className="catalog__item" key={id}>
-      <div className="product-card" data-goods-of-day={goodsOfDay}>
+      <div className={`product-card ${className ?? "" }`} data-goods-of-day={goodsOfDay}>
         <div className="product-card__visual">
           <img className="product-card__img" src={image} height="436" width="290"
                 alt="Изображение товара"/>
