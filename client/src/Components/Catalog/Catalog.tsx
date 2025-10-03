@@ -10,6 +10,12 @@ import { Card } from "../Card/Card";
 export const Catalog = () => {
   const [checked, setChecked] = useState("all-item");
   const [products, setProducts] = useState<ProductCard[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 6;
+
+  const indexOfLast = currentPage * pageSize;
+  const indexOfFirst = indexOfLast - pageSize;
+  const currentProducts = products.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
     fetch("http://localhost:3001/lamps")
@@ -206,12 +212,18 @@ export const Catalog = () => {
               </select>
             </div>
             <ul className="catalog__list" id="catalog-list">
-              {products.map((item) => (
+              {currentProducts.map((item) => (
                 <Card key={item.id} {...item}/>
               ))}
             </ul>
 
-            <ul className="catalog__pagination"></ul>
+            <div className="catalog__pagination">
+              {Array.from({length: Math.ceil(products.length / pageSize)}, (_, i) => (
+                <button key={i} className={`catalog__pagination-btn ${i + 1 === currentPage ? "active" : ""}`} onClick={() => setCurrentPage(i + 1)}>
+                  {i + 1}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
