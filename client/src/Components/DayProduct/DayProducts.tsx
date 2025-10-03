@@ -30,17 +30,13 @@ export const DayProduct = () => {
               disabled
               type="button"
             >
-              <svg width="41" height="9" aria-hidden="true">
-                <use href="images/sprite.svg#icon-arrow-prev"></use>
-              </svg>
+              Prev
             </button>
             <button
               className="day-products__navigation-btn day-products__navigation-btn--next swiper-button-prev"
               type="button"
             >
-              <svg width="41" height="9" aria-hidden="true">
-                <use href="images/sprite.svg#icon-arrow-next"></use>
-              </svg>
+              Next
             </button>
           </div>
         </div>
