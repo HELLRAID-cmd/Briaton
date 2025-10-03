@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import "./DayProducts.scss";
 import type { ProductCard } from "../Types/Types";
 import { Card } from "../Card/Card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 export const DayProduct = () => {
   const [products, setProducts] = useState<ProductCard[]>([]);
@@ -41,17 +45,23 @@ export const DayProduct = () => {
           </div>
         </div>
 
-        {/* <!-- Slider main container --> */}
-        <div className="swiper">
-          {/* <!-- Additional required wrapper --> */}
-          <div className="swiper-wrapper">
-            {products
-              .filter((item) => item.goodsOfDay)
-              .map((item) => (
-                <Card key={item.id} {...item} />
-              ))}
-          </div>
-        </div>
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={20}
+          slidesPerView={4}
+          navigation={{
+            prevEl: ".day-products__navigation-btn--prev",
+            nextEl: ".day-products__navigation-btn--next",
+          }}
+        >
+          {products
+            .filter((item) => item.goodsOfDay)
+            .map((item) => (
+              <SwiperSlide key={item.id}>
+                <Card className="product-card--small" {...item} />
+              </SwiperSlide>
+            ))}
+        </Swiper>
       </div>
     </section>
   );
