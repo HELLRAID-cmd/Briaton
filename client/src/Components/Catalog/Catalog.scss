@@ -55,12 +55,8 @@
     list-style: none;
     gap: 10px;
   }
-
-  &__pagination-item {
-    cursor: pointer;
-  }
-
-  &__pagination-link {
+  
+  &__pagination-btn {
     height: 40px;
     width: 40px;
     display: flex;
@@ -68,6 +64,7 @@
     justify-content: center;
     font-size: 18px;
     line-height: 25.2px;
+    cursor: pointer;
     color: var(--c-dark-gray);
     transition: opacity var(--transition);
     border: none;
@@ -81,7 +78,7 @@
       pointer-events: none;
     }
 
-    &--active {
+    &.active {
       background-color: var(--c-black);
       border-radius: 10px;
       color: var(--c-white);
