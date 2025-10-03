@@ -1,4 +1,6 @@
 import type { ProductCard } from "../Types/Types";
+import "./Card-product.scss";
+import "./Card-tooltip.scss";
 
 export const Card = ({id, image, name, price, info, availability, goodsOfDay}: ProductCard) => {
   return (
