@@ -9,6 +9,7 @@ import "./Components/Antd/Antd.scss";
 import { Header } from "./Components/Header/Header";
 import { Breadcrumbs } from "./Components/Breadcrumbs/Breadcrumbs";
 import { Catalog } from "./Components/Catalog/Catalog";
+import { DayProduct } from "./Components/DayProduct/DayProducts";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Header />
       <Breadcrumbs />
       <Catalog />
+      <DayProduct />
     </>
   );
 }
