@@ -5,6 +5,7 @@ import "./styles/_visually-hidden.scss";
 import "./styles/_fonts.scss";
 import "./styles/_btn.scss";
 import "./Components/Antd/Antd.scss";
+import "./Components/Swiper/Swiper.scss";
 
 import { Header } from "./Components/Header/Header";
 import { Breadcrumbs } from "./Components/Breadcrumbs/Breadcrumbs";
