@@ -10,6 +10,7 @@ import { Header } from "./Components/Header/Header";
 import { Breadcrumbs } from "./Components/Breadcrumbs/Breadcrumbs";
 import { Catalog } from "./Components/Catalog/Catalog";
 import { DayProduct } from "./Components/DayProduct/DayProducts";
+import { Desc } from "./Components/Desc/Desc";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Breadcrumbs />
       <Catalog />
       <DayProduct />
+      <Desc />
     </>
   );
 }
