@@ -21,7 +21,7 @@
     align-items: center;
     gap: 20px;
     position: relative;
-    transform: translateX(-50px);
+    transform: translateX(-70px);
 
     .swiper-button-next::after,
     .swiper-button-prev::after {
@@ -34,16 +34,17 @@
       top: unset;
       height: unset;
       margin-top: unset;
+      color: var(--c-black);
     }
   }
 
   &__navigation-btn {
     background-color: transparent;
-    border: none;
-    padding: 5px 0;
+    border: 1px solid var(--c-black);
+    border-radius: 10px;
+    padding: 5px 20px;
     color: var(--c-black);
     cursor: pointer;
-    width: 50px;
 
     &:disabled {
       color: var(--c-dark-gray);
