@@ -11,6 +11,7 @@ import { Breadcrumbs } from "./Components/Breadcrumbs/Breadcrumbs";
 import { Catalog } from "./Components/Catalog/Catalog";
 import { DayProduct } from "./Components/DayProduct/DayProducts";
 import { Desc } from "./Components/Desc/Desc";
+import { Accordion } from "./Components/Accordion/Accordion";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Catalog />
       <DayProduct />
       <Desc />
+      <Accordion />
     </>
   );
 }

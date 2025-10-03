@@ -16,7 +16,7 @@ export type ProductCard = {
   className?: string;
 }
 
-export type AccordingProps = {
+export type AccordionProps = {
   index: number;
   isOpen: boolean;
   onToggle: () => void;
