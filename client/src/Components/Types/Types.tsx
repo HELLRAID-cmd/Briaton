@@ -15,7 +15,7 @@ export type ProductCard = {
   goodsOfDay: boolean;
 }
 
-export type AccordingProps = {
+export type AccordionProps = {
   index: number;
   isOpen: boolean;
   onToggle: () => void;
