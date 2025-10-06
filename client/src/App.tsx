@@ -13,6 +13,7 @@ import { DayProduct } from "./Components/DayProduct/DayProducts";
 import { Desc } from "./Components/Desc/Desc";
 import { Accordion } from "./Components/Accordion/Accordion";
 import { Questions } from "./Components/Questions/Questions";
+import { Footer } from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Desc />
       <Accordion />
       <Questions />
+      <Footer />
     </>
   );
 }
