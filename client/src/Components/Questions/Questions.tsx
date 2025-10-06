@@ -9,7 +9,7 @@ export const Questions = () => {
           <span className="questions__title-text">Сложно выбрать?</span>
           <span className="questions__title-text">Обратитесь к нам и мы поможем</span>
         </h2>
-        <img className="questions__img" src="images/lamp.png" width="253" height="319" alt="Фотография лампы"/>
+        <img className="questions__img" src="/img/imgCard/lamp.png" width="253" height="319" alt="Фотография лампы"/>
         <p className="questions__text">Эксперты по светотехнике подберут накладные светильники специально под вашу задачу. Вы получите проект освещения и профессиональную консультацию бесплатно.</p>
         <form action="#!" method="POST" className="questions__form">
           <div className="questions__inner">
