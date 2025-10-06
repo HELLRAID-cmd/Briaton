@@ -1,8 +1,11 @@
+import { useBasket } from "../BasketContext/BasketContext";
 import type { ProductCard } from "../Types/Types";
 import "./Card-product.scss";
 import "./Card-tooltip.scss";
 
 export const Card = ({id, image, name, price, info, availability, goodsOfDay, className}: ProductCard) => {
+  const {addToBasket} = useBasket();
+  
   return (
     <li className="catalog__item" key={id}>
       <div className={`product-card ${className ?? "" }`} data-goods-of-day={goodsOfDay}>
@@ -10,7 +13,7 @@ export const Card = ({id, image, name, price, info, availability, goodsOfDay, cl
           <img className="product-card__img" src={image} height="436" width="290"
                 alt="Изображение товара"/>
           <div className="product-card__more">
-            <button type="button" className="product-card__link button--add-basket btn btn--icon">
+            <button type="button" onClick={addToBasket} className="product-card__link button--add-basket btn btn--icon">
               <span className="btn__text">В корзину</span>
               <svg width="24" height="24" aria-hidden="true">
                 <use href="images/sprite.svg#icon-basket"></use>

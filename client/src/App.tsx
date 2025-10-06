@@ -14,10 +14,11 @@ import { Desc } from "./Components/Desc/Desc";
 import { Accordion } from "./Components/Accordion/Accordion";
 import { Questions } from "./Components/Questions/Questions";
 import { Footer } from "./Components/Footer/Footer";
+import { BasketProvider } from "./Components/BasketContext/BasketContext";
 
 function App() {
   return (
-    <>
+    <BasketProvider>
       <Header />
       <Breadcrumbs />
       <Catalog />
@@ -26,7 +27,7 @@ function App() {
       <Accordion />
       <Questions />
       <Footer />
-    </>
+    </BasketProvider>
   );
 }
 
