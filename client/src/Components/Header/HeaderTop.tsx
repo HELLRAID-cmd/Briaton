@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HeaderCatalog } from "./HeaderCatalog";
 import { HeaderLocation } from "./HeaderLocation";
 import type { HeaderBasketProps, HeaderLocationProps } from "../Types/Types";
+import { useBasket } from "../BasketContext/BasketContext";
 
 type HeaderTopProps = HeaderBasketProps & HeaderLocationProps;
 
@@ -14,6 +15,7 @@ export const HeaderTop = ({
   onCityChange,
 }: HeaderTopProps) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+  const {basketCount} = useBasket();
 
   const handleCatalogOpen = () => setIsCatalogOpen(true);
   const handleCatalogClose = () => setIsCatalogOpen(false);
@@ -74,7 +76,7 @@ export const HeaderTop = ({
               >
                 <use href="images/sprite.svg#icon-basket"></use>
               </svg>
-              <span className="header__user-count">0</span>
+              <span className="header__user-count">{basketCount}</span>
             </button>
 
             <div
