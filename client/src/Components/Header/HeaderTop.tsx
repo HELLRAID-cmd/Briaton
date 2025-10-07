@@ -16,7 +16,7 @@ export const HeaderTop = ({
   onCityChange,
 }: HeaderTopProps) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const { basketCount, basketItems } = useBasket();
+  const { basketCount, basketItems, removeFromBasket } = useBasket();
 
   const handleCatalogOpen = () => setIsCatalogOpen(true);
   const handleCatalogClose = () => setIsCatalogOpen(false);
@@ -99,6 +99,7 @@ export const HeaderTop = ({
                         name={item.name}
                         price={item.price}
                         image={item.image}
+                        delCard={removeFromBasket}
                       />
                     ))}
                   </>
