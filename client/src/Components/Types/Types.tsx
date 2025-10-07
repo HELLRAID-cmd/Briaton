@@ -23,6 +23,7 @@ export type ProductCardBasket = {
     new: number;
   };
   image: string;
+  delCard: (id: number) => void;
 }
 
 export type AccordionProps = {
