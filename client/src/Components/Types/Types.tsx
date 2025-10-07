@@ -16,6 +16,15 @@ export type ProductCard = {
   className?: string;
 }
 
+export type ProductCardBasket = {
+  id: number;
+  name: string;
+  price: {
+    new: number;
+  };
+  image: string;
+}
+
 export type AccordionProps = {
   index: number;
   isOpen: boolean;
