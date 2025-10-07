@@ -119,7 +119,7 @@ export const Card = ({
   );
 };
 
-export const CardBasket = ({ id, name, price, image }: ProductCardBasket) => {
+export const CardBasket = ({ id, name, price, image, delCard }: ProductCardBasket) => {
   return (
     <li className="basket__item" key={id}>
       <div className="basket__img">
@@ -129,7 +129,7 @@ export const CardBasket = ({ id, name, price, image }: ProductCardBasket) => {
       <span className="basket__price">
         {price.new.toLocaleString("ru-Ru") ?? "-"} руб
       </span>
-      <button className="basket__item-close" type="button">
+      <button className="basket__item-close" onClick={() => delCard(id)} type="button">
         <svg
           className="main-menu__icon main-menu__icon--basket"
           width="24"
