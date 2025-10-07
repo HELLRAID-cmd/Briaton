@@ -14,6 +14,7 @@ type BasketContextType = {
   addToBasket: (item: BasketItem) => void;
   clearBasket: () => void;
   basketItems: BasketItem[];
+  removeFromBasket: (id: number) => void;
 };
 
 const BasketContext = createContext<BasketContextType | undefined>(undefined);
@@ -25,11 +26,15 @@ export const BasketProvider = ({ children }: { children: React.ReactNode }) => {
     setBasketItems((prev) => [...prev, item]);
   };
 
+  const removeFromBasket = (id:number) => {
+    setBasketItems((prev) => prev.filter(item => item.id !== id));
+  }
+
   const clearBasket = () => setBasketItems([]);
   const basketCount = basketItems.length;
 
   return (
-    <BasketContext.Provider value={{ basketCount, basketItems, addToBasket, clearBasket }}>
+    <BasketContext.Provider value={{ basketCount, basketItems, addToBasket, clearBasket, removeFromBasket }}>
       {children}
     </BasketContext.Provider>
   );
