@@ -3,6 +3,7 @@ import { HeaderCatalog } from "./HeaderCatalog";
 import { HeaderLocation } from "./HeaderLocation";
 import type { HeaderBasketProps, HeaderLocationProps } from "../Types/Types";
 import { useBasket } from "../BasketContext/BasketContext";
+import { CardBasket } from "../Card/Card";
 
 type HeaderTopProps = HeaderBasketProps & HeaderLocationProps;
 
@@ -15,7 +16,7 @@ export const HeaderTop = ({
   onCityChange,
 }: HeaderTopProps) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const {basketCount} = useBasket();
+  const { basketCount, basketItems } = useBasket();
 
   const handleCatalogOpen = () => setIsCatalogOpen(true);
   const handleCatalogClose = () => setIsCatalogOpen(false);
@@ -84,13 +85,30 @@ export const HeaderTop = ({
                 isOpenBasket ? "basket--active" : ""
               }`}
             >
-              <ul className="basket__list basket--scroll" id="basket-list"></ul>
-              <a className="basket__link btn" href="#">
-                Перейти к оформлению
-              </a>
-              <div className="basket__empty-block basket__empty-block--active">
-                Корзина пока пуста
-              </div>
+              <ul className="basket__list basket--scroll" id="basket-list">
+                {basketItems.length === 0 ? (
+                  <div className="basket__empty-block basket__empty-block--active">
+                    Корзина пока пуста
+                  </div>
+                ) : (
+                  <>
+                    {basketItems.map((item) => (
+                      <CardBasket
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        price={item.price}
+                        image={item.image}
+                      />
+                    ))}
+                  </>
+                )}
+              </ul>
+              {basketItems.length >= 1 ? (
+                <a className={`basket__link btn ${basketCount ? "basket__link--active" : ""}`} href="#">
+                  Перейти к оформлению
+                </a>
+              ) : null}
             </div>
           </li>
           <li className="header__user-item">

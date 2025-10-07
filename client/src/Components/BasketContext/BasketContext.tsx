@@ -1,29 +1,45 @@
 import { createContext, useState, useContext } from "react";
 
-type BasketContextType = {
-  basketCount: number;
-  addToBasket: () => void;
+type BasketItem = {
+  id: number;
+  name: string;
+  price: {
+    new: number;
+  };
+  image: string;
 };
 
-const basketContext = createContext<BasketContextType | undefined>(undefined);
+type BasketContextType = {
+  basketCount: number;
+  addToBasket: (item: BasketItem) => void;
+  clearBasket: () => void;
+  basketItems: BasketItem[];
+};
+
+const BasketContext = createContext<BasketContextType | undefined>(undefined);
 
 export const BasketProvider = ({ children }: { children: React.ReactNode }) => {
-  const [basketCount, setBasketCount] = useState(0);
-  const addToBasket = () => setBasketCount((prev) => prev + 1);
+  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+  
+  const addToBasket = (item: BasketItem) => {
+    setBasketItems((prev) => [...prev, item]);
+  };
+
+  const clearBasket = () => setBasketItems([]);
+  const basketCount = basketItems.length;
 
   return (
-    <basketContext.Provider value={{ basketCount, addToBasket }}>
+    <BasketContext.Provider value={{ basketCount, basketItems, addToBasket, clearBasket }}>
       {children}
-    </basketContext.Provider>
-  )
-}
+    </BasketContext.Provider>
+  );
+};
 
 export const useBasket = () => {
-  const context = useContext(basketContext);
+  const context = useContext(BasketContext);
   if (!context) {
     throw new Error("useBasket must be used within BasketProvider");
   }
-  
-  return context;
-}
 
+  return context;
+};
