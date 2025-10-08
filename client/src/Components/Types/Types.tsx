@@ -12,6 +12,7 @@ export type ProductCard = {
     orenburg: number;
     saintPetersburg: number;
   };
+  type?: [string];
   goodsOfDay: boolean;
   className?: string;
 }
@@ -33,28 +34,35 @@ export type AccordionProps = {
   question: string;
   answer1: string;
   answer2?: string;
-}
+};
+
+export type CheckProductProps = {
+  id: number;
+  name: string;
+  type: [string];
+  count: number;
+};
 
 export type HeaderLocationProps = {
   city: string;
   isOpenLocation: boolean;
   onLocationClose: () => void;
   onCityChange: (city: string) => void;
-}
+};
 
-export type HeaderProps  = {
+export type HeaderProps = {
   isOpen: boolean;
   onClose: () => void;
-}
+};
 
 export type HeaderBasketProps = {
   isOpenBasket: boolean;
   onBasketClose: () => void;
-}
+};
 
 // Catalog
 export type CatalogRender = {
   products: ProductCard[];
   productCount: number;
   currentPage: number;
-}
+};
