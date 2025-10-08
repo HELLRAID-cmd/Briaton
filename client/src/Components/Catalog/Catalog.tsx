@@ -4,12 +4,14 @@ import "./Catalog-Custom-checkbox.scss";
 import "./Catalog-Custom-input.scss";
 import "./Catalog-Custom-radio.scss";
 import { useEffect, useState } from "react";
-import type { ProductCard } from "../Types/Types";
+import type { CheckProductProps, ProductCard } from "../Types/Types";
 import { Card } from "../Card/Card";
+import TypeTranslations from "../Types/TypesTranslate";
 
 export const Catalog = () => {
   const [checked, setChecked] = useState("all-item");
   const [products, setProducts] = useState<ProductCard[]>([]);
+  const [countCheck, setCountCheck] = useState<CheckProductProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
@@ -20,8 +22,30 @@ export const Catalog = () => {
   useEffect(() => {
     fetch("http://localhost:3001/lamps")
       .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.log("Ошибка:", err));
+      .then((data: ProductCard[]) => {
+        setProducts(data);
+
+        const allTypes = Array.from(data.flatMap((p) => p.type ?? []));
+
+        const typeCounts: Record<string, number> = {};
+        allTypes.forEach((t) => {
+          if (t) {
+            typeCounts[t] = (typeCounts[t] || 0) + 1;
+          }
+        });
+
+        const checkData: CheckProductProps[] = Object.entries(typeCounts).map(
+          ([type, count], id) => ({
+            id,
+            name: type,
+            type: [type],
+            count,
+          })
+        );
+
+        setCountCheck(checkData);
+      })
+      .catch((err) => console.error("Ошибка:", err));
   }, []);
 
   return (
@@ -39,127 +63,38 @@ export const Catalog = () => {
             <fieldset className="catalog-form__fieldset">
               <legend className="catalog-form__legend">Светильники</legend>
               <ul className="catalog-form__list-col">
-                <li className="catalog-form__item-col">
-                  <div className="custom-checkbox custom-checkbox--pendant">
-                    <input
-                      className="visually-hidden custom-checkbox__field"
-                      id="pendant"
-                      type="checkbox"
-                      name="type"
-                      value="pendant"
-                    />
-                    <label className="custom-checkbox__label" htmlFor="pendant">
-                      <span className="custom-checkbox__name">Подвесные</span>
-                      <svg
-                        className="custom-checkbox__icon"
-                        width="10"
-                        height="10"
-                        aria-hidden="true"
+                {countCheck.map((item) => (
+                  <li className="catalog-form__item-col" key={item.type[0]}>
+                    <div className="custom-checkbox custom-checkbox--pendant">
+                      <input
+                        className="visually-hidden custom-checkbox__field"
+                        id={`${item.id}`}
+                        type="checkbox"
+                        name="type"
+                        value="pendant"
+                      />
+                      <label
+                        className="custom-checkbox__label"
+                        htmlFor={`${item.id}`}
                       >
-                        <use href="images/sprite.svg#icon-check"></use>
-                      </svg>
-                      <span className="custom-checkbox__count">0</span>
-                    </label>
-                  </div>
-                </li>
-                <li className="catalog-form__item-col">
-                  <div className="custom-checkbox custom-checkbox--ceiling">
-                    <input
-                      className="visually-hidden custom-checkbox__field"
-                      id="ceiling"
-                      type="checkbox"
-                      name="type"
-                      value="ceiling"
-                    />
-                    <label className="custom-checkbox__label" htmlFor="ceiling">
-                      <span className="custom-checkbox__name">Потолочные</span>
-                      <svg
-                        className="custom-checkbox__icon"
-                        width="10"
-                        height="10"
-                        aria-hidden="true"
-                      >
-                        <use href="images/sprite.svg#icon-check"></use>
-                      </svg>
-                      <span className="custom-checkbox__count">0</span>
-                    </label>
-                  </div>
-                </li>
-                <li className="catalog-form__item-col">
-                  <div className="custom-checkbox custom-checkbox--overhead">
-                    <input
-                      className="visually-hidden custom-checkbox__field"
-                      id="overhead"
-                      type="checkbox"
-                      name="type"
-                      value="overhead"
-                    />
-                    <label
-                      className="custom-checkbox__label"
-                      htmlFor="overhead"
-                    >
-                      <span className="custom-checkbox__name">Накладные</span>
-                      <svg
-                        className="custom-checkbox__icon"
-                        width="10"
-                        height="10"
-                        aria-hidden="true"
-                      >
-                        <use href="images/sprite.svg#icon-check"></use>
-                      </svg>
-                      <span className="custom-checkbox__count">0</span>
-                    </label>
-                  </div>
-                </li>
-                <li className="catalog-form__item-col">
-                  <div className="custom-checkbox custom-checkbox--point">
-                    <input
-                      className="visually-hidden custom-checkbox__field"
-                      id="point"
-                      type="checkbox"
-                      name="type"
-                      value="point"
-                    />
-                    <label className="custom-checkbox__label" htmlFor="point">
-                      <span className="custom-checkbox__name">Точечные</span>
-                      <svg
-                        className="custom-checkbox__icon"
-                        width="10"
-                        height="10"
-                        aria-hidden="true"
-                      >
-                        <use href="images/sprite.svg#icon-check"></use>
-                      </svg>
-                      <span className="custom-checkbox__count">0</span>
-                    </label>
-                  </div>
-                </li>
-                <li className="catalog-form__item-col">
-                  <div className="custom-checkbox custom-checkbox--nightlights">
-                    <input
-                      className="visually-hidden custom-checkbox__field"
-                      id="nightlights"
-                      type="checkbox"
-                      name="type"
-                      value="nightlights"
-                    />
-                    <label
-                      className="custom-checkbox__label"
-                      htmlFor="nightlights"
-                    >
-                      <span className="custom-checkbox__name">Ночники</span>
-                      <svg
-                        className="custom-checkbox__icon"
-                        width="10"
-                        height="10"
-                        aria-hidden="true"
-                      >
-                        <use href="images/sprite.svg#icon-check"></use>
-                      </svg>
-                      <span className="custom-checkbox__count">0</span>
-                    </label>
-                  </div>
-                </li>
+                        <span className="custom-checkbox__name">
+                          {TypeTranslations[item.name] || item.name}
+                        </span>
+                        <svg
+                          className="custom-checkbox__icon"
+                          width="10"
+                          height="10"
+                          aria-hidden="true"
+                        >
+                          <use href="images/sprite.svg#icon-check"></use>
+                        </svg>
+                        <span className="custom-checkbox__count">
+                          {item.count}
+                        </span>
+                      </label>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </fieldset>
             <fieldset className="catalog-form__fieldset">
@@ -213,16 +148,25 @@ export const Catalog = () => {
             </div>
             <ul className="catalog__list" id="catalog-list">
               {currentProducts.map((item) => (
-                <Card key={item.id} {...item}/>
+                <Card key={item.id} {...item} />
               ))}
             </ul>
 
             <div className="catalog__pagination">
-              {Array.from({length: Math.ceil(products.length / pageSize)}, (_, i) => (
-                <button key={i} className={`catalog__pagination-btn ${i + 1 === currentPage ? "active" : ""}`} onClick={() => setCurrentPage(i + 1)}>
-                  {i + 1}
-                </button>
-              ))}
+              {Array.from(
+                { length: Math.ceil(products.length / pageSize) },
+                (_, i) => (
+                  <button
+                    key={i}
+                    className={`catalog__pagination-btn ${
+                      i + 1 === currentPage ? "active" : ""
+                    }`}
+                    onClick={() => setCurrentPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
             </div>
           </div>
         </div>
