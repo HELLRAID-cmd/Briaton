@@ -12,16 +12,24 @@ export type ProductCard = {
     orenburg: number;
     saintPetersburg: number;
   };
+  type?: [string];
   goodsOfDay: boolean;
 };
 
-export type AccordionProps = {
+export type AccordingProps = {
   index: number;
   isOpen: boolean;
   onToggle: () => void;
   question: string;
   answer1: string;
   answer2?: string;
+};
+
+export type CheckProductProps = {
+  id: number;
+  name: string;
+  type: [string];
+  count: number;
 };
 
 export type HeaderLocationProps = {
