@@ -13,6 +13,7 @@ export type ProductCard = {
     saintPetersburg: number;
   };
   type?: [string];
+  rating: number;
   goodsOfDay: boolean;
   className?: string;
 }

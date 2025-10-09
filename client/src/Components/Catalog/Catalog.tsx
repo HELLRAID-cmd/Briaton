@@ -34,6 +34,10 @@ export const Catalog = () => {
           }
         });
 
+        // Сортировка по умолчанию
+        const sorted = [...data].sort((a, b) => a.price.new - b.price.new);
+        setProducts(sorted);
+
         const checkData: CheckProductProps[] = Object.entries(typeCounts).map(
           ([type, count], id) => ({
             id,
@@ -47,6 +51,24 @@ export const Catalog = () => {
       })
       .catch((err) => console.error("Ошибка:", err));
   }, []);
+
+  // Сортировка по минимальной цене
+  const sortClickMin = () => {
+    const sorted = [...products].sort((a, b) => a.price.new - b.price.new);
+    setProducts(sorted);
+  };
+
+  // Сортировка по максимальной цене
+  const sortClickMax = () => {
+    const sorted = [...currentProducts].sort((a, b) => b.price.new - a.price.new);
+    setProducts(sorted);
+  };
+
+  // Сортировка по рейтингу
+  const sortClickRating = () => {
+    const sorted = [...currentProducts].sort((a, b) => b.rating - a.rating);
+    setProducts(sorted);
+  };
 
   return (
     <section className="catalog">
@@ -140,7 +162,21 @@ export const Catalog = () => {
           <div className="catalog__products">
             <div className="catalog__sort">
               <p className="catalog__sort-text">Сортировать по:</p>
-              <select className="catalog__sort-select" name="sort">
+              <select
+                className="catalog__sort-select"
+                name="sort"
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  if (value === "price-max") {
+                    sortClickMax();
+                  } else if (value === "rating-max") {
+                    sortClickRating();
+                  } else {
+                    sortClickMin();
+                  }
+                }}
+              >
                 <option value="price-min">Сначала дешёвые</option>
                 <option value="price-max">Сначала дорогие</option>
                 <option value="rating-max">Сначала популярные</option>
