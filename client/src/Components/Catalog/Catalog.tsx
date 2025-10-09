@@ -9,10 +9,12 @@ import { Card } from "../Card/Card";
 import TypeTranslations from "../Types/TypesTranslate";
 
 export const Catalog = () => {
-  const [checked, setChecked] = useState("all-item");
+  const [allProducts, setAllProducts] = useState<ProductCard[]>([]);
   const [products, setProducts] = useState<ProductCard[]>([]);
   const [countCheck, setCountCheck] = useState<CheckProductProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortType, setSortType] = useState("price-min");
+  const [filterInStock, setFilterInStock] = useState(false);
   const pageSize = 6;
 
   const indexOfLast = currentPage * pageSize;
@@ -23,20 +25,17 @@ export const Catalog = () => {
     fetch("http://localhost:3001/lamps")
       .then((res) => res.json())
       .then((data: ProductCard[]) => {
+        setAllProducts(data);
         setProducts(data);
 
         const allTypes = Array.from(data.flatMap((p) => p.type ?? []));
-
         const typeCounts: Record<string, number> = {};
+
         allTypes.forEach((t) => {
           if (t) {
             typeCounts[t] = (typeCounts[t] || 0) + 1;
           }
         });
-
-        // Сортировка по умолчанию
-        const sorted = [...data].sort((a, b) => a.price.new - b.price.new);
-        setProducts(sorted);
 
         const checkData: CheckProductProps[] = Object.entries(typeCounts).map(
           ([type, count], id) => ({
@@ -50,25 +49,32 @@ export const Catalog = () => {
         setCountCheck(checkData);
       })
       .catch((err) => console.error("Ошибка:", err));
-  }, []);
+  }, [sortType]);
 
-  // Сортировка по минимальной цене
-  const sortClickMin = () => {
-    const sorted = [...products].sort((a, b) => a.price.new - b.price.new);
-    setProducts(sorted);
-  };
+  useEffect(() => {
+    let filteredData = [...allProducts];
 
-  // Сортировка по максимальной цене
-  const sortClickMax = () => {
-    const sorted = [...currentProducts].sort((a, b) => b.price.new - a.price.new);
-    setProducts(sorted);
-  };
+    // фильтр "в наличии"
+    if (filterInStock) {
+      filteredData = filteredData.filter(
+        (p) =>
+          p.availability.moscow > 0 ||
+          p.availability.orenburg > 0 ||
+          p.availability.saintPetersburg > 0
+      );
+    }
 
-  // Сортировка по рейтингу
-  const sortClickRating = () => {
-    const sorted = [...currentProducts].sort((a, b) => b.rating - a.rating);
-    setProducts(sorted);
-  };
+    // сортировка
+    if (sortType === "price-min") {
+      filteredData.sort((a, b) => a.price.new - b.price.new);
+    } else if (sortType === "price-max") {
+      filteredData.sort((a, b) => b.price.new - a.price.new);
+    } else if (sortType === "rating-max") {
+      filteredData.sort((a, b) => b.rating - a.rating);
+    }
+
+    setProducts(filteredData);
+  }, [sortType, filterInStock, allProducts]);
 
   return (
     <section className="catalog">
@@ -130,8 +136,8 @@ export const Catalog = () => {
                       type="radio"
                       name="status"
                       value="instock"
-                      checked={checked === "instock"}
-                      onChange={(e) => setChecked(e.target.value)}
+                      checked={filterInStock}
+                      onChange={(e) => setFilterInStock(e.target.checked)}
                     />
                     <label className="custom-radio__label" htmlFor="instock">
                       <span className="custom-radio__toggle"></span>
@@ -147,8 +153,8 @@ export const Catalog = () => {
                       type="radio"
                       name="status"
                       value="all-item"
-                      checked={checked === "all-item"}
-                      onChange={(e) => setChecked(e.target.value)}
+                      checked={!filterInStock}
+                      onChange={() => setFilterInStock(false)}
                     />
                     <label className="custom-radio__label" htmlFor="all-item">
                       <span className="custom-radio__toggle"></span>
@@ -165,17 +171,8 @@ export const Catalog = () => {
               <select
                 className="catalog__sort-select"
                 name="sort"
-                onChange={(e) => {
-                  const value = e.target.value;
-
-                  if (value === "price-max") {
-                    sortClickMax();
-                  } else if (value === "rating-max") {
-                    sortClickRating();
-                  } else {
-                    sortClickMin();
-                  }
-                }}
+                value={sortType}
+                onChange={(e) => setSortType(e.target.value)}
               >
                 <option value="price-min">Сначала дешёвые</option>
                 <option value="price-max">Сначала дорогие</option>
