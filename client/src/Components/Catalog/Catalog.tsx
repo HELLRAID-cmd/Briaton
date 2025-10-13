@@ -3,78 +3,25 @@ import "./Catalog-form.scss";
 import "./Catalog-Custom-checkbox.scss";
 import "./Catalog-Custom-input.scss";
 import "./Catalog-Custom-radio.scss";
-import { useEffect, useState } from "react";
-import type { CheckProductProps, ProductCard } from "../Types/Types";
+import { useState } from "react";
 import { Card } from "../Card/Card";
 import TypeTranslations from "../Types/TypesTranslate";
+import { useProduct } from "./useProduct";
 
 export const Catalog = () => {
-  const [allProducts, setAllProducts] = useState<ProductCard[]>([]);
-  const [products, setProducts] = useState<ProductCard[]>([]);
-  const [countCheck, setCountCheck] = useState<CheckProductProps[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState("price-min");
-  const [filterInStock, setFilterInStock] = useState(false);
-  const pageSize = 6;
+  const {products,
+    countCheck,
+    sortType,
+    setSortType,
+    filterInStock,
+    setFilterInStock,
+    handleTypeChange} = useProduct();
 
+  const pageSize = 6;
+  const [currentPage, setCurrentPage] = useState(1);
   const indexOfLast = currentPage * pageSize;
   const indexOfFirst = indexOfLast - pageSize;
   const currentProducts = products.slice(indexOfFirst, indexOfLast);
-
-  useEffect(() => {
-    fetch("http://localhost:3001/lamps")
-      .then((res) => res.json())
-      .then((data: ProductCard[]) => {
-        setAllProducts(data);
-        setProducts(data);
-
-        const allTypes = Array.from(data.flatMap((p) => p.type ?? []));
-        const typeCounts: Record<string, number> = {};
-
-        allTypes.forEach((t) => {
-          if (t) {
-            typeCounts[t] = (typeCounts[t] || 0) + 1;
-          }
-        });
-
-        const checkData: CheckProductProps[] = Object.entries(typeCounts).map(
-          ([type, count], id) => ({
-            id,
-            name: type,
-            type: [type],
-            count,
-          })
-        );
-
-        setCountCheck(checkData);
-      })
-      .catch((err) => console.error("Ошибка:", err));
-  }, [sortType]);
-
-  useEffect(() => {
-    let filteredData = [...allProducts];
-
-    // фильтр "в наличии"
-    if (filterInStock) {
-      filteredData = filteredData.filter(
-        (p) =>
-          p.availability.moscow > 0 ||
-          p.availability.orenburg > 0 ||
-          p.availability.saintPetersburg > 0
-      );
-    }
-
-    // сортировка
-    if (sortType === "price-min") {
-      filteredData.sort((a, b) => a.price.new - b.price.new);
-    } else if (sortType === "price-max") {
-      filteredData.sort((a, b) => b.price.new - a.price.new);
-    } else if (sortType === "rating-max") {
-      filteredData.sort((a, b) => b.rating - a.rating);
-    }
-
-    setProducts(filteredData);
-  }, [sortType, filterInStock, allProducts]);
 
   return (
     <section className="catalog">
@@ -99,7 +46,8 @@ export const Catalog = () => {
                         id={`${item.id}`}
                         type="checkbox"
                         name="type"
-                        value="pendant"
+                        value={item.type[0]}
+                        onChange={(e) => handleTypeChange(e.target.value)}
                       />
                       <label
                         className="custom-checkbox__label"
