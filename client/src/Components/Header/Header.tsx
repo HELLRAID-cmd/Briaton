@@ -1,32 +1,21 @@
 import { HeaderTop } from "./HeaderTop";
 import { HeaderBottom } from "./HeaderBottom";
-import { useState } from "react";
 
 import "./Header.scss";
 import "./HeaderLocation.scss";
 import "./HeaderMainMenu.scss";
 import "./HeaderBasket.scss";
+import { useHeader } from "./useHeader/useHeader";
 
 export const Header = () => {
-  const [isBasketOpen, setIsBasketOpen] = useState(false);
-  const [isLocationOpen, setIsLocationOpen] = useState(false);
-  const [selectedCity, setSelectedCity] = useState("Оренбург");
-
-  // Переключения показа корзины
-  const handleBasketToggle = () => {
-    setIsBasketOpen((prev) => !prev);
-  };
-
-  // Переключения показа городов
-  const handleLocationToggle = () => {
-    setIsLocationOpen((prev) => !prev);
-  };
-
-  // Переключения городов
-  const handleLocationCity = (city: string) => {
-    setSelectedCity(city);
-    setIsLocationOpen(false);
-  };
+  const {
+    isBasketOpen,
+    isLocationOpen,
+    selectedCity,
+    handleBasketToggle,
+    handleLocationToggle,
+    handleLocationCity,
+  } = useHeader();
 
   return (
     <header className="header">
