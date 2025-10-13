@@ -9,13 +9,16 @@ import TypeTranslations from "../Types/TypesTranslate";
 import { useProduct } from "./useProduct";
 
 export const Catalog = () => {
-  const {products,
+  const {
+    products,
     countCheck,
     sortType,
     setSortType,
     filterInStock,
     setFilterInStock,
-    handleTypeChange} = useProduct();
+    handleTypeChange,
+    resetFilters,
+  } = useProduct();
 
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +32,7 @@ export const Catalog = () => {
         <h1 className="catalog__title">Светильники</h1>
         <div className="catalog__wrapper">
           <form action="#!" method="get" className="catalog-form" id="form">
-            <button className="catalog-form__reset" type="reset">
+            <button className="catalog-form__reset" type="reset" onClick={() => resetFilters()}>
               <svg width="24" height="24" aria-hidden="true">
                 <use href="images/sprite.svg#icon-filter"></use>
               </svg>

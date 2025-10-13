@@ -77,6 +77,12 @@ export const useProduct = () => {
     );
   };
 
+  const resetFilters = () => {
+    setFilterInStock(false);
+    setTypeChecked([]);
+    setSortType("price-min");
+  }
+
   return {
     products,
     countCheck,
@@ -85,5 +91,6 @@ export const useProduct = () => {
     filterInStock,
     setFilterInStock,
     handleTypeChange,
+    resetFilters,
   };
 };
