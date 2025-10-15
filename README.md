@@ -22,6 +22,8 @@
 
 ## Как запустить проект?
 ```bash
+
+# Скопировать проект
 git clone https://github.com/HELLRAID-cmd/Briaton.git
 
 # Перейти в папку client
